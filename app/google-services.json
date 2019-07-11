@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "491931942092",
+    "firebase_url": "https://chatv2-6a8d2.firebaseio.com",
+    "project_id": "chatv2-6a8d2",
+    "storage_bucket": "chatv2-6a8d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491931942092:android:24ce4ef99969196a",
+        "android_client_info": {
+          "package_name": "com.example.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491931942092-u9kfs0e6m0d0l7fk4r3riskkpd7a9i2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0dcw4F-fSA6Y_NW0pUVhjC0BZiiJgGqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491931942092-u9kfs0e6m0d0l7fk4r3riskkpd7a9i2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491931942092:android:11718f3a973a2035",
+        "android_client_info": {
+          "package_name": "z79.trainingcourse.chat_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491931942092-u9kfs0e6m0d0l7fk4r3riskkpd7a9i2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0dcw4F-fSA6Y_NW0pUVhjC0BZiiJgGqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491931942092-u9kfs0e6m0d0l7fk4r3riskkpd7a9i2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
