@@ -52,4 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("ketqua", "onDestroy: activity destroyed");
+        super.onDestroy();
+    }
 }

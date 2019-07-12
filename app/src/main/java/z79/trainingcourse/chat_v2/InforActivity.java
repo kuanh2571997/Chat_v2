@@ -12,17 +12,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InforActivity extends AppCompatActivity {
-    private static final String TAG = "InforActivity";
+    private static final String TAG = "findconnected";
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private CircleImageView imgAvatar;
-    private TextView txtName, txtEmail, txtUID;
-    private Button btnLogout;
+    private TextView txtName, txtLogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class InforActivity extends AppCompatActivity {
         InitActivity();
         SetInfor(firebaseUser);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        txtLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
@@ -44,22 +48,38 @@ public class InforActivity extends AppCompatActivity {
             }
         });
 
+
+        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    Log.d(TAG, "onDataChange: connected");
+                } else {
+                    Log.d(TAG, "onDataChange: not connected");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
+        
+
     }
 
     private void InitActivity(){
         imgAvatar = findViewById(R.id.imgAvatar);
-        txtEmail = findViewById(R.id.txtEmail);
         txtName = findViewById(R.id.txtName);
-        txtUID = findViewById(R.id.txtUid);
-        btnLogout = findViewById(R.id.btnLogout);
+        txtLogOut = findViewById(R.id.txtLogOut);
     }
 
     private void SetInfor(FirebaseUser user){
-        txtName.append(user.getDisplayName());
-        txtEmail.append(user.getEmail());
-        txtUID.append(user.getUid());
+        txtName.setText(user.getDisplayName());
         Glide.with(this).load(user.getPhotoUrl()).into(imgAvatar);
         Log.d(TAG, "SetInfor: "+user.getPhotoUrl());
-
     }
+
 }

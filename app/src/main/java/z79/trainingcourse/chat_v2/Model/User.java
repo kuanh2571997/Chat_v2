@@ -5,8 +5,17 @@ public class User {
     private String url;
     private String name;
     private String email;
+    private String status;
 
     public User() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {

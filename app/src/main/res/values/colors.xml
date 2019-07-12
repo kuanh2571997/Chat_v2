@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorHeader">#FA2F2F</color>
     <color name="textColor">#000</color>
+    <color name="textLink">#2A4FDF</color>
 </resources>
