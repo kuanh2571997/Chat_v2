@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:textSize="30sp"
+        android:id="@+id/txtRegister"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:textColor="@color/colorHeader"/>

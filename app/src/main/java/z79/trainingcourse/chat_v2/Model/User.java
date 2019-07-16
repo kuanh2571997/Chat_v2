@@ -1,6 +1,9 @@
 package z79.trainingcourse.chat_v2.Model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
     private String id;
     private String url;
     private String name;

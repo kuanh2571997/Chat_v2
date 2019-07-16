@@ -27,6 +27,7 @@ public class InforActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private CircleImageView imgAvatar;
     private TextView txtName, txtLogOut;
+    private DatabaseReference mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class InforActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        mData = FirebaseDatabase.getInstance().getReference();
 
         InitActivity();
         SetInfor(firebaseUser);
@@ -43,31 +45,11 @@ public class InforActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
+                mData.child("users").child(firebaseUser.getUid()).child("status").setValue("Offline");
                 Intent intent = new Intent(InforActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
-
-        DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
-        connectedRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                boolean connected = snapshot.getValue(Boolean.class);
-                if (connected) {
-                    Log.d(TAG, "onDataChange: connected");
-                } else {
-                    Log.d(TAG, "onDataChange: not connected");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                System.err.println("Listener was cancelled");
-            }
-        });
-        
-
     }
 
     private void InitActivity(){
@@ -82,4 +64,10 @@ public class InforActivity extends AppCompatActivity {
         Log.d(TAG, "SetInfor: "+user.getPhotoUrl());
     }
 
+    @Override
+    protected void onDestroy() {
+        mData.child("users").child(firebaseUser.getUid().toString()).child("status").setValue("Offline");
+        Log.d(TAG, "onDestroy: destroy"+firebaseUser.getUid());
+        super.onDestroy();
+    }
 }

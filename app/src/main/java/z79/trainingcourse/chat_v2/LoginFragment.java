@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -29,6 +32,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FragmentTransaction fragmentTransaction;
     private View view;
+    private DatabaseReference mDatabaseReference;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -41,7 +45,9 @@ public class LoginFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
         Init();
+
         firebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +94,8 @@ public class LoginFragment extends Fragment {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(getActivity(), "Login Successfull", Toast.LENGTH_SHORT).show();
+                        FirebaseUser currentUser = task.getResult().getUser();
+                        mDatabaseReference.child("users").child(currentUser.getUid()).child("status").setValue("Online");
                         getActivity().finish();
                         Intent intent = new Intent(getActivity(), InforActivity.class);
                         startActivity(intent);
